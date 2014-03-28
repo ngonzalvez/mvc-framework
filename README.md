@@ -1,5 +1,5 @@
 ## MVC Framework
-This is a simple MVC framework for PHP programming language. I built this as a practice project and to show my programming skills for future employers. 
+This is a simple MVC framework for PHP programming language. I built this as a practice project and to show my programming skills to future employers. 
 
 By all means, this is not meant to be used in production since this code is not being maintained. However, this may be useful for those who are learning programming to understand the basis of the MVC architecture.
 
@@ -11,14 +11,14 @@ The router is one of the main parts of the framework. Once the HTTP request has 
 
 The requests determine which controller will be instantiated and which method will be called, as well as the parameters passed to it.
 
-When the web browser requests for the URL:
+When the web browser requests the URL:
 
 ```
   http://domain.com/user/profile/kryz
 ```
 The URL will be parsed (with the help of the parseURL helper) and interpreted as a request for the controller `User`, a call to the method `profile` with the first parameter value being `kryz`.
 
-In fact, what will happen is that the URL be parsed considering the next convention:
+In fact, what will happen is that the URL will be parsed considering the next convention:
 ```
   http://domain.com/controller/method/firstParameter/secondParameter/thirdParameter/andSoOn
 ```
@@ -26,7 +26,7 @@ In fact, what will happen is that the URL be parsed considering the next convent
 Basically what it will do is to consider the first fragment of the URL after the domain as the controller name, the second as the method name, and the others will be passed to the method as arguments.
 
 ## Controllers
-The controller is the part of the framework that glues all of the others. It generally will load a model, ask for some data, receive the data and pass it to the view to be rendered. After that the result will be sent to the client to be rendered in the web browser.
+The controller is the part of the framework that glues all of the others. It will generally load a model, ask for some data, receive the data and pass it to the view to be rendered. After that the result will be sent to the client to be rendered in the web browser.
 
 A controller is just a class that extends the base class `Controller`. It will always implement a method named `index` that will be called if no other method is specified in the request.
 
@@ -36,8 +36,8 @@ A simple example of a controller is the next:
 class Welcome extends Controller
 {
   public function index() {
-      echo "Hello world!";
-    }
+    echo "Hello world!";
+  }
 }
 ```
 
@@ -50,43 +50,43 @@ Notice that in the URL `welcome` is written in lowercase and the controller clas
 
 Apart from the default method `index`, there may be (and probably there will be) more methods. The only requirement for them is to be **public**.
 
-An example of adding a method to our last controller would be:
+An example of adding a method to our controller would be:
 
 ```php
 class Welcome extends Controller
 {
   // Default method.
   public function index() {
-      echo "Hello world!";
-    }
+    echo "Hello world!";
+  }
     
-    // Our new method.
-    public function sayHi($name) {
-      echo "Hi $name!";
-    }
+  // Our new method.
+  public function sayHi($name) {
+    echo "Hi $name!";
+  }
 }
 ```
 
-Now, by performing an HTTP request to the URL `http://domain.com/welcome/sayHi/kryz` would output:
+Now, performing an HTTP request to the URL `http://domain.com/welcome/sayHi/kryz` would output:
 
 ```
 Hi kryz!
 ```
 
 ## Views
-The view is simply a PHP file with HTML inside. The view is should contain all the UI-related stuff and none of the logic. All views must be located inside of `app\views`.
+A view is simply a PHP file with HTML inside. The view should contain all the UI-related stuff and none of the logic. All views must be located inside of `/app/views/`.
 
-In order to load a view (it should only be loaded from inside a controller) you do it this way:
+To load a view (it should only be loaded from inside a controller) just write:
 
 ```php
 class Example extends Controller
 {
   public function index() {
     $this->load->view("SomeView");
-    }
+  }
 }
 ```
-As explained before, there should be some file named `SomeView.php` in the **views** folder.
+As explained before, there should be some file named `SomeView.php` in the `/app/views/` folder.
 
 You can also pass some data to the view. You can do it by passing an associative array as a second argument.
 
@@ -94,15 +94,14 @@ You can also pass some data to the view. You can do it by passing an associative
 class Example extends Controller
 {
   public function index() {
-      $data = array(
-          "title" => "Passing data to a view",
-            "text"  => "This text came directly from the controller."
-        );
+    $data = array(
+        "title" => "Passing data to a view",
+        "text"  => "This text came directly from the controller."
+      );
         
-        $this->load->view("SomeView", $data);
-    }
+    $this->load->view("SomeView", $data);
+  }
 }
-
 
 ```
 
@@ -113,7 +112,7 @@ Inside the view, every key in the associative array will be converted to a varia
 <html>
 <body>
   <h1><?=$title?></h1>
-    <p><?=$text?></p>
+  <p><?=$text?></p>
 </body>
 </html>
 ```
@@ -121,9 +120,9 @@ Inside the view, every key in the associative array will be converted to a varia
 Notice that `<?=` is used as a shorthand for `<?php echo`. This is only possible if `short_open_tag` is set to **On** in `php.ini`.
 
 ## Helpers
-A helper is just a function that provides some useful behaviour. You can create your own helpers. To do so, you just have to create a file in the `app\helpers` folder with the name of your helper.
+A helper is just a function that provides some useful behaviour. You can create your own helpers. To do so, you just have to create a file in the `/app/helpers/` folder with the name than your helper.
 
-For example, let's say we are going to create a helper named `sayHi`, then we'll need to create the file `app\helpers\sayHi.php`. Inside of the file we'll write a function with the same name than the file and put our desired behaviour in it. For this example, our helper will just say hi to the name passed to it as an argument.
+For example, let's say we are going to create a helper named `sayHi`, then we'll need to create the file `/app/helpers/sayHi.php`. Inside of the file we'll write a function with the same name than the file and put our desired behaviour in it. For this example, our helper will just say hi to the name passed to it as an argument.
 
 ```php
 function sayHi($name) {
@@ -136,23 +135,23 @@ And that's it. We already have our helper. Now we can load it and use it inside 
 class Example extends Controller
 {
   public function index() {
-      // Loads the helper.
-      $this->load->helper("sayHi");
+    // Loads the helper.
+    $this->load->helper("sayHi");
         
-        // And now we simply use it.
-        sayHi("Kryz");
-    } 
+    // And now we simply use it.
+    sayHi("Kryz");
+  } 
 }
 ```
 
 And it will print `Hi Kryz!` on the screen.
 
 ## Models
-A model is where all the bussiness logic is performed, providing the controller with all the data it needs. This is the part of the framework that handles the storage of data and the logic bound to it.
+A model is where all the business logic is performed, providing the controller with all the data it needs. This is the part of the framework that handles the data storag and the logic bound to it.
 
-For example, in social website we could have one model for handling all the user-related data and logic, such as: login, registration, user profile, etc. And we could have another model for handling all the messages-related data and logic.
+For example, in a social website we could have one model for handling all the user-related data and logic, such as: login, registration, user profile, etc. And we could have another model for handling all the messages-related data and logic.
 
-Creating a model is fairly easy: create a file with the name of the model located in `/app/models` and create a class inside of it with the same name which extends the base class `Model`. 
+Creating a model is fairly easy: create a file with the name of the model located in `/app/models/` and create a class inside of it with the same name which extends the base class `Model`. 
 
 Let's create a model named `DemoModel`:
 
@@ -164,9 +163,9 @@ class DemoModel extends Model
 {
   // Sample method.
   public function getSomeMessage() {
-      $message = "This message comes from our DemoModel";
-        return $message;
-    }
+    $message = "This message comes from our DemoModel";
+    return $message;
+  }
 }
 ```
 
@@ -176,9 +175,9 @@ Now that we already have our model, we can load it and use it inside of our cont
 class Example extends Controller
 {
   public function index() {
-      $this->load->model("DemoModel", true);
-        echo $this->DemoModel->getSomeMessage();
-    }
+    $this->load->model("DemoModel", true);
+    echo $this->DemoModel->getSomeMessage();
+  }
 }
 ```
 
@@ -190,9 +189,9 @@ Once it is loaded, it will be stored as a property inside of our controller with
 class Example extends Controller
 {
   public function index() {
-      $this->load->model("DemoModel", true, "myModel");
-        echo $this->myModel->getSomeMessage();
-    }
+    $this->load->model("DemoModel", true, "myModel");
+    echo $this->myModel->getSomeMessage();
+  }
 }
 ```
 
@@ -215,14 +214,14 @@ class DemoModel extends Model
 {
   // Prints all the messages in the DB.
   public function getSomeMessage() {
-      $messages = $this->db->from("messages")
-               ->select()
-                             ->result();                 
+    $messages = $this->db->from("messages")
+                         ->select()
+                         ->result();                 
         
-        foreach ($messages as $message) {
-          echo "{$message->author} wrote: {$message->content}. <br/>";
-        }
+    foreach ($messages as $message) {
+      echo "{$message->author} wrote: {$message->content}. <br/>";
     }
+  }
 }
 
 // OUTPUT:
@@ -230,23 +229,23 @@ class DemoModel extends Model
 // John Doe wrote: Hello there!
 // Emma Smith wrote: This is awesome!
 ```
-Here, the result of the query is an array of rows where every row is represented by an object that has a property for each field in the table. If we want rows to be associative arrays instead of objects we only have to change `result()` for `result_array()`.
+Here, the result of the query is an array of rows where every row is represented by an object that has a property for every field in the table. If we want rows to be associative arrays instead of objects we only have to change `result()` for `result_array()`.
 
 ####WHERE
-What if we don't want all the messages, what if we want the message written by John Doe.
+What if we don't want all the messages, what if we want just the message written by John Doe.
 
 ```php
 class DemoModel extends Model
 {
   // Prints on the screen the message written by John Doe
   public function getSomeMessage() {
-      $message = $this->db->from("messages")
-                  ->where("author", "John Doe")
-              ->select()
-                            ->row();                 
+    $message = $this->db->from("messages")
+                        ->where("author", "John Doe")
+                        ->select()
+                        ->row();                 
         
-        echo "{$message->author}'s message is '{$message->content}'";
-    }
+    echo "{$message->author}'s message is '{$message->content}'";
+  }
 }
 
 // OUTPUT:
@@ -262,16 +261,16 @@ class DemoModel extends Model
 {
   // Prints on the screen the message written by Emma Smith
   public function getSomeMessage() {
-      $message = $this->db->from("messages")
-                  ->where(array(
-                                "author" => "Emma Smith",
-                                    "id" => 3
-                                ))
-              ->select()
-                            ->row();                 
+    $message = $this->db->from("messages")
+                        ->where(array(
+                              "author" => "Emma Smith",
+                              "id" => 3
+                            ))
+                        ->select()
+                        ->row();                 
         
-        echo "{$message->author}'s message is '{$message->content}'";
-    }
+    echo "{$message->author}'s message is '{$message->content}'";
+  }
 }
 
 // OUTPUT:
@@ -286,20 +285,20 @@ class DemoModel extends Model
 {
   // Updates John Doe's message.
   public function updateMessage() {
-      $message = $this->db->from("messages")
-                  ->where("author", "John Doe")
-              ->update(array(
+    $message = $this->db->from("messages")
+                        ->where("author", "John Doe")
+                        ->update(array(
                                 "content" => "This is a new message."
-                              ));
-    }
+                            ));
+  }
 }
 ```
 Then the updated values would be:
 
-id | author     | content
+id | author       | content
 ---|----------------|----------
  1 | John Smith   | I like MVC frameworks!
- 2 | John Doe   | This is a new message.
+ 2 | John Doe     | This is a new message.
  3 | Emma Smith   | This is awesome!
  
  #### INSERT
@@ -312,15 +311,15 @@ class DemoModel extends Model
 {
   // Inserts two new messages
   public function insertMessage() {
-      // Using an associative array.
-        $this->db->insert("messages", array(
-                "author" => "Emma Smith",
+    // Using an associative array.
+    $this->db->insert("messages", array(
+                        "author" => "Emma Smith",
                         "content" => "This is other message"
-              ));
+                      ));
                     
-        // Using an array of values.
-        $this->db->insert("messages", array('', 'Emma Smith', "Yet another message."));
-    }
+    // Using an array of values.
+    $this->db->insert("messages", array('', 'Emma Smith', "Yet another message."));
+  }
 }
 ```
  The biggest difference is that with the associative array you don't have to specify the value for every field.
@@ -335,10 +334,10 @@ class DemoModel extends Model
 {
   // Deletes John Smith's messages.
   public function deleteMessages() {
-        $this->db->from("messages")
+    $this->db->from("messages")
              ->where("author", "John Smith")
              ->delete();
-    }
+  }
 }
 ```
 
