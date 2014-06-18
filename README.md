@@ -1,9 +1,9 @@
 ## MVC Framework
-This is a simple MVC framework for PHP programming language. I built this as a practice project and to show my programming skills to future employers. 
+This is a simple MVC framework for PHP programming language.
 
 By all means, this is not meant to be used in production since this code is not being maintained. However, this may be useful for those who are learning programming to understand the basis of the MVC architecture.
 
-If you have any doubts, please feel free to contact me at [Cristopher.G@mail.ru](mailto:Cristopher.G@mail.ru).
+If you have any doubts, please feel free to contact me at [n.gonzalvez@sophilabs.com](mailto:n.gonzalvez@sophilabs.com).
 
 
 ## Router
